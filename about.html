@@ -158,5 +158,33 @@
         </div>
     </footer>
 </div>
+
+<!-- Mobile Menu + Chatbot -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const btn = document.querySelector('[data-mobile-toggle]');
+  const menu = document.querySelector('[data-mobile-menu]');
+  if(btn && menu){
+    btn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
+  }
+  // Chatbot
+  const botBtn = document.createElement('button');
+  botBtn.textContent="💬";
+  botBtn.style.cssText="position:fixed;bottom:20px;right:20px;padding:10px;border-radius:50%;background:#ff69b4;color:#fff;font-size:20px;z-index:9999;";
+  document.body.appendChild(botBtn);
+  const box=document.createElement('div');
+  box.style.cssText="position:fixed;bottom:80px;right:20px;width:280px;height:360px;background:#fff;border:1px solid #ddd;border-radius:10px;display:none;flex-direction:column;overflow:hidden;z-index:9999;";
+  box.innerHTML='<div style="background:#ff69b4;color:#fff;padding:8px;">Florist Assistant</div><div id="cb" style="flex:1;padding:8px;overflow:auto;font-size:14px;"></div><div style="padding:6px;display:flex;gap:4px;"><input id="ci" style="flex:1;border:1px solid #ccc;padding:4px;border-radius:6px;"><button id="cs" style="padding:4px 8px;background:#ff69b4;color:#fff;border:none;border-radius:6px;">Send</button></div>';
+  document.body.appendChild(box);
+  botBtn.onclick=()=> box.style.display= box.style.display==="none"?"flex":"none";
+  function reply(t){document.getElementById("cb").innerHTML+=`<div style="margin:4px 0;color:#555;">${t}</div>`;}
+  document.getElementById("cs")?.addEventListener("click", ()=>{
+    let v=document.getElementById("ci").value.trim(); if(!v)return;
+    reply("You: "+v); document.getElementById("ci").value="";
+    reply("Bot: Thanks for reaching out! We’ll help you with bouquets, deliveries, and custom floral arrangements 🌸");
+  });
+});
+</script>
+
 </body>
 </html>
